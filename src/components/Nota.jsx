@@ -13,13 +13,11 @@ export default function Nota({ nota, borrarNota, actualizarNota }) {
   };
 
   return (
-    <div className="column is-one-quarter">
+    <div className="col s12 m6 l4 xl3">
       <div className="card">
-        <header className="card-header">
-          <p className="card-header-title">Id: {nota.id}</p>
-        </header>
         <div className="card-content">
-          <div className="content">
+          <span className="card-title">Id: {nota.id}</span>
+          <div>
             {modoEdicion ? (
               <div className="field">
                 <label htmlFor="titulo" className="label">
@@ -60,23 +58,26 @@ export default function Nota({ nota, borrarNota, actualizarNota }) {
             )}
           </div>
         </div>
-        <footer className="card-footer">
-          <button className="card-footer-item" onClick={toggle}>
+        <div className="card-action">
+          <button className="waves-effect waves-light btn" onClick={toggle}>
             {modoEdicion ? "Cancelar" : "Editar"}
           </button>
           {!modoEdicion ? (
             <button
-              className="card-footer-item"
+              className="waves-effect waves-light btn red lighten-1"
               onClick={() => borrarNota(nota.id)}
             >
               x
             </button>
           ) : (
-            <button className="card-footer-item" onClick={() => editar()}>
+            <button
+              className="waves-effect waves-light btn"
+              onClick={() => editar()}
+            >
               Guardar
             </button>
           )}
-        </footer>
+        </div>
       </div>
     </div>
   );

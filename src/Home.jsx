@@ -13,7 +13,7 @@ export default function Dashboard() {
 
   return (
     <div className="container">
-      <h1 className="title has-text-centered mt-5">Lista de Notas</h1>
+      <h1 className="center-align">Lista de Notas</h1>
       <Notas notas={notas} setNotas={setNotas} />
       <Form notas={notas} setNotas={setNotas} />
     </div>

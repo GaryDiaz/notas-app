@@ -12,7 +12,7 @@ export default function Notas({ notas, setNotas }) {
   };
 
   return (
-    <div className="columns is-multiline">
+    <div className="row">
       {notas.map((nota) => {
         return (
           <Nota
