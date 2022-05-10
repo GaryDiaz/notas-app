@@ -1,15 +1,25 @@
 import React, { useState } from "react";
+import M from "materialize-css";
 
-export default function Nota({ nota, borrarNota, actualizarNota }) {
+export default function Nota({
+  nota,
+  borrarNota,
+  actualizarNota,
+  error,
+  setError,
+}) {
   const [modoEdicion, setModoEdicion] = useState(false);
   const [item, setItem] = useState(nota);
   const toggle = () => {
     setModoEdicion(!modoEdicion);
     setItem(nota);
+    setError({ titulo: "", descripcion: "" });
   };
-  const editar = () => {
-    actualizarNota(item);
-    setModoEdicion(false);
+  const editar = async () => {
+    if (await actualizarNota(item)) {
+      setModoEdicion(false);
+      setError({ titulo: "", descripcion: "" });
+    }
   };
 
   return (
@@ -19,39 +29,37 @@ export default function Nota({ nota, borrarNota, actualizarNota }) {
           <span className="card-title">Id: {nota.id}</span>
           <div>
             {modoEdicion ? (
-              <div className="field">
-                <label htmlFor="titulo" className="label">
-                  Título
-                </label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    value={item.titulo}
-                    onChange={(ev) =>
-                      setItem({ ...item, titulo: ev.target.value })
-                    }
-                  />
-                </div>
+              <div className="input-field">
+                <i className="material-icons prefix">title</i>
+                <input
+                  id="titulo"
+                  className="input"
+                  type="text"
+                  value={item.titulo}
+                  onChange={(ev) =>
+                    setItem({ ...item, titulo: ev.target.value })
+                  }
+                />
+                <span className="helper-text red-text">{error.titulo}</span>
               </div>
             ) : (
               <div> Título: {nota.titulo}</div>
             )}
             {modoEdicion ? (
-              <div className="field">
-                <label htmlFor="descripcion" className="label">
-                  Descripción
-                </label>
-                <div className="control">
-                  <input
-                    className="textarea"
-                    type="text"
-                    value={item.descripcion}
-                    onChange={(ev) =>
-                      setItem({ ...item, descripcion: ev.target.value })
-                    }
-                  />
-                </div>
+              <div className="input-field">
+                <i className="material-icons prefix">description</i>
+                <input
+                  id="descripcion"
+                  className="textarea"
+                  type="text"
+                  value={item.descripcion}
+                  onChange={(ev) =>
+                    setItem({ ...item, descripcion: ev.target.value })
+                  }
+                />
+                <span className="helper-text red-text">
+                  {error.descripcion}
+                </span>
               </div>
             ) : (
               <div> Descripción: {nota.descripcion}</div>
