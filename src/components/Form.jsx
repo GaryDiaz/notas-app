@@ -65,9 +65,7 @@ export default function Form({ notas, setNotas }) {
             cols="100"
             rows="3"
             value={nota.descripcion}
-            onChange={(ev) =>
-              setNota({ ...nota, descripcion: ev.target.value })
-            }
+            onChange={(ev) => setNota({ ...nota, descripcion: ev.target.value })}
           ></textarea>
           <label htmlFor="descripcion">Descripción</label>
           <span className="helper-text red-text">{error.descripcion}</span>
